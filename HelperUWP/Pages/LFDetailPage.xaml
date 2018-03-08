@@ -1,0 +1,180 @@
+﻿<Page
+    x:Class="HelperUWP.Pages.LFDetailPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HelperUWP.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Controls="using:HelperUWP.Controls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Storyboard x:Name="STRBDpopin"
+                    Duration="0:0:0.5">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TRANSroot"
+                                           Storyboard.TargetProperty="Y">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="300"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35"
+                                      Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" Exponent="6"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.TargetName="GRIDLFdetailRoot"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.3"
+                             To="1"
+                             Duration="0:0:0.35"/>
+        </Storyboard>
+    </Page.Resources>
+
+    <Grid x:Name="GRIDLFdetailRoot">
+
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="TRANSroot"/>
+        </Grid.RenderTransform>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VSLFdetail">
+                <VisualState x:Name="wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="850"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TXTBLKLFdetailTitle.HorizontalAlignment" 
+                                Value="Center"/>
+                        <Setter Target="STKPNLFdetail.Orientation"
+                                Value="Horizontal"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TXTBLKLFdetailTitle.HorizontalAlignment" 
+                                Value="Left"/>
+                        <Setter Target="STKPNLFdetail.Orientation"
+                                Value="Vertical"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="GRIDLFdetailTitle"
+              Grid.Row="0"
+              Background="{StaticResource TitleBackground}">
+            <TextBlock x:Name="TXTBLKLFdetailTitle"
+                       Text="物品详情"
+                       Margin="50,0,0,0" 
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       FontSize="25"/>
+            <Button x:Name="BTNback"
+                    FontFamily="Segoe MDL2 Assets"
+                    Content="&#xE0A6;"
+                    Background="Transparent"
+                    FontSize="25"
+                    Height="50"
+                    Width="50"
+                    Style="{StaticResource MyButtonStyle}"
+                    Click="BTNback_Click">
+            </Button>
+            <Button x:Name="BTNdelete"
+                    FontFamily="Segoe MDL2 Assets"
+                    HorizontalAlignment="Right"
+                    Content="&#xE74D;"
+                    Background="Transparent"
+                    FontSize="25"
+                    Height="50"
+                    Width="50"
+                    Style="{StaticResource MyButtonStyle}"
+                    Click="BTNdelete_Click"/>
+        </Grid>
+        <ScrollViewer Grid.Row="1"
+                      Background="{StaticResource LFBackground}">
+            <StackPanel x:Name="STKPNLFdetail"
+                        MaxWidth="800">
+                <Grid MaxWidth="400">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="物品图片"
+                               FontSize="10" 
+                               Margin="5,4,0,0"
+                               Foreground="DarkGray"
+                       />
+                    <Border CornerRadius="10"
+                            Background="White"
+                            Grid.Row="1"
+                            Margin="10,5">
+                        <Image Tapped="IMGthing_Tapped"                               
+                               x:Name="IMGthing"
+                               Stretch="Uniform"
+                               Margin="10"/>
+                    </Border>
+                </Grid>
+                <Grid MaxWidth="400">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="其它信息"
+                               FontSize="10" 
+                               Margin="5,4,0,0"
+                               Foreground="DarkGray"
+                       />
+                    <ListView Grid.Row="1"
+                              x:Name="LSTVWLFdetail">
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" 
+                                        Value="Stretch"/>
+                                <Setter Property="VerticalContentAlignment"
+                                        Value="Stretch"/>
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Rectangle Fill="White" 
+                                            Stroke="SkyBlue" 
+                                            VerticalAlignment="Stretch" 
+                                            HorizontalAlignment="Stretch"/>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="160"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding Path=name}"
+                                                    Margin="15,0"
+                                                    FontSize="20"
+                                                    Grid.Column="0" 
+                                                    VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding Path=value}"
+                                                    Margin="25,5"
+                                                    FontSize="20"
+                                                    Grid.Column="1"
+                                                    TextWrapping="Wrap"
+                                                    Foreground="Gray" 
+                                                    VerticalAlignment="Center"/>
+
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+        <Controls:ImageShow Grid.RowSpan="2"
+                            x:Name="IMGSdetail"
+                            Visibility="Collapsed"
+                            x:DeferLoadStrategy="Lazy"/>
+    </Grid>
+</Page>

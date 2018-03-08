@@ -1,0 +1,189 @@
+﻿<Page
+    x:Class="HelperUWP.Pages.ChatPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HelperUWP.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ref="using:HelperUWP.ChatRef"
+    xmlns:Controls="using:HelperUWP.Controls"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <ref:ChatTimeConverter x:Key="ct_cvt"/>
+        <ref:ColorConverter x:Key="cl_cvt"/>
+        <Storyboard x:Name="STRBDpopin"
+                    Duration="0:0:0.35">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TRANSroot"
+                                           Storyboard.TargetProperty="Y">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="300"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35"
+                                      Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" Exponent="6"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.TargetName="GRIDchatRoot"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.3"
+                             To="1"
+                             Duration="0:0:0.35"/>
+        </Storyboard>
+    </Page.Resources>
+
+    <Grid x:Name="GRIDchatRoot"
+          Loaded="GRIDchatRoot_Loaded">
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="TRANSroot"/>
+        </Grid.RenderTransform>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="COLmaster"/>
+            <ColumnDefinition x:Name="COLdetail"/>
+        </Grid.ColumnDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VSGchat"
+                              CurrentStateChanged="VSGchat_CurrentStateChanged">
+                <VisualState x:Name="narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TXTBLKchatTitle.HorizontalAlignment" 
+                                Value="Left"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="850"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="COLmaster.Width"
+                                Value="400"/>
+                        <Setter Target="COLdetail.Width"
+                                Value="*"/>
+                        <Setter Target="TXTBLKchatTitle.HorizontalAlignment" 
+                                Value="Center"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid x:Name="GRIDmaster"
+              Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="GRIDchatTitle"
+                  Grid.Row="0"
+                  Background="{StaticResource TitleBackground}">
+                <TextBlock x:Name="TXTBLKchatTitle"
+                           Text="我的消息"
+                           Margin="50,0,0,0" 
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           FontSize="25"/>
+                <Button x:Name="BTNadd"
+                    Height="50"
+                    Width="50"
+                    Style="{StaticResource MyButtonStyle}"
+                    FontFamily="Segoe MDL2 Assets"
+                    Content="&#xE109;"
+                    HorizontalAlignment="Right"
+                    Click="BTNadd_Click"
+                    FontSize="25"
+                    Background="Transparent"
+                    Grid.Row="0"/>
+            </Grid>
+            <Grid Grid.Row="1"
+                  Background="{StaticResource ChatBackground}">
+                <Controls:PivotEnhance HorizontalAlignment="Left"
+                                   VerticalAlignment="Bottom"/>
+                <Controls:MyProgressBar x:Name="PRGRSchatMaster"
+                                        VerticalAlignment="Top"/>
+                <ListView x:Name="LSTVWchat"
+                          IsItemClickEnabled="True"
+                          ItemClick="LSTVWchat_ItemClick"
+                          IsActiveView="true"
+                          SelectionMode="None"
+                          ItemContainerStyle="{StaticResource ListViewItemExpanded}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid DataContext="{Binding}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="0.5"/>
+                                </Grid.RowDefinitions>
+
+                                <Rectangle Grid.Row="1"
+                                   Stroke="#9F1D1D1D"
+                                           StrokeThickness="0.25"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"/>
+                                <Grid Grid.Row="0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="30"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0"
+                                                Margin="3">
+                                        <RelativePanel>
+                                            <TextBlock RelativePanel.AlignLeftWithPanel="True"
+                                               FontSize="25"
+                                               Text="{Binding Name}"/>
+                                            <TextBlock RelativePanel.AlignRightWithPanel="True"
+                                               FontSize="15"
+                                               Foreground="#FF515151"
+                                               Text="{Binding Timestamp,Converter={StaticResource ResourceKey=ct_cvt}}"/>
+                                        </RelativePanel>
+                                        <TextBlock Text="{Binding Content}"
+                                           Foreground="#FF1D1D1D"
+                                           TextWrapping="NoWrap"
+                                           MaxHeight="20"
+                                                   Margin="0,6,0,3"/>
+                                    </StackPanel>
+
+                                    <TextBlock Foreground="#FF1D1D1D"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="18"
+                                       FontFamily="Segoe MDL2 Assets"
+                                       Text="&#xE09F;"
+                                       Grid.Column="1"/>
+                                    <Ellipse Grid.Column="1"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Width="30"
+                                            Height="30"
+                                             Fill="{Binding Path=HasNew,Converter={StaticResource ResourceKey=cl_cvt}}">
+                                        
+                                    </Ellipse>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <ContentDialog x:Name="DLGchat" 
+                               Title="请输入对方学号" 
+                               PrimaryButtonText="确定" 
+                               SecondaryButtonText="取消" 
+                               Closing="DLGchat_Closing"
+                               Opened="DLGchat_Opened"
+                               Background="{StaticResource DialogBackground}"
+                               BorderBrush="Transparent">
+                    <TextBox BorderThickness="0"
+                             Background="Transparent"
+                             PlaceholderText="请输入对方学号"
+                             x:Name="TXTBXchatChoose"
+                             Margin="0,25,0,0"/>
+                </ContentDialog>
+            </Grid>
+            
+        </Grid>
+        <Grid x:Name="GRIDdetail"
+              Grid.Column="1">
+            <Controls:ChatControl x:Name="CHATdetail"
+                                  PopoutCompleted="PopoutComplete"/>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,179 @@
+﻿<Page
+    x:Class="HelperUWP.Pages.CourseEditPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HelperUWP.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <Storyboard x:Name="STRBDpopin"
+                    Duration="0:0:0.35">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TRANSedit"
+                                           Storyboard.TargetProperty="Y">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="600"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35"
+                                      Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut"
+                                         Exponent="6"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.TargetName="GRIDroot"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0"
+                             To="1"
+                             Duration="0:0:0.35"/>
+        </Storyboard>
+        <Storyboard x:Name="STRBDpopout"
+                    Duration="0:0:0.35"
+                    Completed="STRBDpopout_Completed">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TRANSedit"
+                                           Storyboard.TargetProperty="Y">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35"
+                                      Value="600">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseIn"
+                                         Exponent="8"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.TargetName="GRIDroot"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1"
+                             To="0.1"
+                             Duration="0:0:0.35"/>
+        </Storyboard>
+    </Page.Resources>
+    <Grid 
+          x:Name="GRIDroot"
+          Tapped="GRIDroot_Tapped">
+        <Grid x:Name="GRIDadd"
+              MaxWidth="500"
+              Background="White"
+              Margin="0,50,0,0">
+            <Grid.RenderTransform>
+                <TranslateTransform x:Name="TRANSedit"/>
+            </Grid.RenderTransform>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock x:Name="AddCustomCourseHint"
+                       Text="新增自选课程"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="28"
+                       FontWeight="Medium"/>
+            <Button x:Name="BTNconfirm"
+                Click="BTNconfirm_Click"
+                Style="{StaticResource MyButtonStyle2}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Stretch"
+                Margin="8">
+                <Button.Content>
+                    <FontIcon FontFamily="Segoe MDL2 Assets"
+                              Glyph="&#xE001;"
+                              FontSize="25"/>
+                </Button.Content>
+            </Button>
+            <Button x:Name="BTNback"                    
+                    Style="{StaticResource MyButtonStyle2}"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Stretch"
+                    Margin="8"
+                    Click="BTNback_Click"
+                    >
+                <Button.Content>
+                    <FontIcon FontFamily="Segoe MDL2 Assets"
+                              Glyph="&#xE0C4;"
+                              FontSize="25"/>
+                </Button.Content>
+            </Button>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="TXTBXname"
+                         Opacity="0.8" 
+                         FontSize="20"
+                         BorderBrush="Transparent"
+                         PlaceholderText="请输入课程名称"
+                         MaxHeight="40"
+                         VerticalAlignment="Center"
+                         Grid.Row="0"/>
+                <TextBox x:Name="TXTBXlocation"
+                         Opacity="0.8" 
+                         PlaceholderText="请输入上课地点"
+                         FontSize="20"
+                         MaxHeight="40"
+                         VerticalAlignment="Center"
+                         BorderBrush="Transparent"
+                         Grid.Row="1"/>
+                <TextBlock Text=""
+                           Grid.Row="2"
+                           Foreground="{StaticResource HintForeground}"
+                           TextWrapping="Wrap"
+                           FontSize="10"
+                           Margin="5,0,0,0">                   
+                    <Run Text="注：黄色代表每周，绿色代表单周，蓝色代表双周,单击方块以调整上课时间"/>
+                </TextBlock>
+                <Grid x:Name="GRIDcourseTable"
+                      VerticalAlignment="Stretch"
+                      Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.8*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="2*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="13"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="1" Text="1" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="2" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="3" Text="3" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="4" Text="4" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="5" Text="5" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="6" Text="6" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="7" Text="7" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="8" Text="8" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="9" Text="9" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="10" Text="10" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="11" Text="11" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="12" Text="12" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="一" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="二" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="3" Text="三" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="4" Text="四" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="5" Text="五" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="6" Text="六" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="7" Text="日" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource HintForeground}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

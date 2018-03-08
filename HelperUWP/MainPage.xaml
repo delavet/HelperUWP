@@ -1,0 +1,260 @@
+﻿<Page
+    x:Class="HelperUWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HelperUWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Controls="using:HelperUWP.Controls"
+    mc:Ignorable="d">
+    
+
+    <Grid x:Name="GRIDroot">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="visualState"
+                              CurrentStateChanged="visualState_CurrentStateChanged">
+                <VisualState x:Name="wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1000" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SPVmenu.DisplayMode" Value="CompactInline" />
+                        <Setter Target="SPVmenu.IsPaneOpen" Value="True" />
+                        <Setter Target="STKPNuserSmall.Visibility" Value="Collapsed"/>
+                        <Setter Target="STKPNuserLarge.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="meddium">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="850" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SPVmenu.DisplayMode" Value="CompactInline" />
+                        <Setter Target="SPVmenu.IsPaneOpen" Value="False" />
+                        <Setter Target="STKPNuserSmall.Visibility" Value="Visible"/>
+                        <Setter Target="STKPNuserLarge.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <!--medium和wide的值相差150，这是为了FRAMEcontent所含页面可以统一在850时切换wide成状态-->
+                <VisualState x:Name="narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SPVmenu.DisplayMode" Value="Overlay" />
+                        <Setter Target="SPVmenu.IsPaneOpen" Value="False" />
+                        <Setter Target="STKPNuserSmall.Visibility" Value="Collapsed"/>
+                        <Setter Target="STKPNuserLarge.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid x:Name="GRIDblur"
+              Opacity="1"
+              Background="{StaticResource MyAcrylicBrush}">
+            
+        </Grid>
+        <Controls:MessageShow x:Name="SHOWmsg" 
+                              VerticalAlignment="Top" 
+                              HorizontalAlignment="Center"
+                              Margin="10,80,10,10"
+                              >
+        </Controls:MessageShow>
+        
+        
+        <SplitView x:Name="SPVmenu"
+                   DisplayMode="CompactInline"
+                   IsPaneOpen="False"
+                   IsTabStop="False"                 
+                   CompactPaneLength="50"
+                   OpenPaneLength="200"
+                   PaneBackground="{StaticResource MyMenuBrush}"
+                   PaneClosed="SPVmenu_PaneClosed">
+            <SplitView.Pane>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="24" x:Name="HEIGHTtitle"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Background="Transparent"
+                          Grid.Row="0"/>
+                    <Grid Grid.Row="1"
+                                Background="#3FFFFFFF">
+                        <ListBox x:Name="LSTBXmenu"
+                             SelectionMode="Single"
+                             SelectionChanged="LSTBXmenu_SelectionChanged"                             
+                             Margin="0,50,0,0"
+                             Background="Transparent"
+                             >
+                            <ListBoxItem x:Name="ITEMuser"
+                                         Style="{StaticResource MyListBoxItemStyle}">
+                                <StackPanel>
+                                    <StackPanel x:Name="STKPNuserLarge"
+                                                Orientation="Horizontal">
+                                        <Border Height="80"
+                                                Width="80"
+                                                Background="#8F000000"
+                                                CornerRadius="50">
+                                            <TextBlock x:Name="TXTBLKuserFirstName"
+                                                       Foreground="#AFFFFFFF"
+                                                       FontSize="50"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       />
+                                        </Border>
+                                        <RelativePanel Width="100">
+                                            <TextBlock x:Name="TXTBLKuserName"
+                                                       RelativePanel.AlignBottomWithPanel="True"
+                                                       RelativePanel.AlignRightWithPanel="True"
+                                                       Margin="0,0,5,0"
+                                                       />
+                                            <TextBlock x:Name="TXTBLKid"
+                                                       RelativePanel.Above="TXTBLKuserName"
+                                                       RelativePanel.AlignRightWithPanel="True"
+                                                       Margin="0,0,5,5"
+                                                       />
+                                        </RelativePanel>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal"
+                                                x:Name="STKPNuserSmall"
+                                                Height="24">
+                                        <FontIcon FontFamily="Segoe MDL2 Assets"
+                                                  Glyph="&#xE13D;"/>
+                                        <TextBlock Text="个人信息" Margin="25,0,0,0"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </ListBoxItem>
+                            
+                            <ListBoxItem x:Name="ITEMipgw" Style="{StaticResource MyListBoxItemStyle}">
+                                <StackPanel Orientation="Horizontal" Height="24">
+                                    <FontIcon  Width="24" Height="24" 
+                                               FontFamily="Segoe MDL2 Assets"
+                                               FontWeight="Thin"
+                                               Glyph="&#xE128;"
+                                               FontSize="24"/>
+                                    <TextBlock Text="连接网关" Margin="25,0,0,0"/>
+                                </StackPanel>
+                                
+                            </ListBoxItem>
+                            <ListBoxItem x:Name="ITEMcourse" Style="{StaticResource MyListBoxItemStyle}">
+                                <StackPanel Orientation="Horizontal" Height="24" >
+                                    <FontIcon  Width="24" Height="24" 
+                                               FontFamily="Segoe MDL2 Assets"
+                                               FontWeight="Thin"
+                                               Glyph="&#xE80A;"
+                                               FontSize="24"/>
+                                    <TextBlock Text="课程表" Margin="25,0,0,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem x:Name="ITEMmyPKU" Style="{StaticResource MyListBoxItemStyle}">
+                                <StackPanel Orientation="Horizontal" Height="24">
+                                    <FontIcon  Width="24" Height="24" 
+                                               FontFamily="Segoe UI Symbol"
+                                               FontWeight="Thin"
+                                               Glyph="&#xE1EC;"
+                                               FontSize="24"/>
+                                    <TextBlock Text="常用信息" Margin="25,0,0,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem x:Name="ITEMnc" Style="{StaticResource MyListBoxItemStyle}">
+                                <StackPanel Orientation="Horizontal" Height="24">
+                                    <FontIcon  Width="24" Height="24" 
+                                               FontFamily="Segoe MDL2 Assets"
+                                               FontWeight="Thin"
+                                               Glyph="&#xED0D;"
+                                               FontSize="24"/>
+                                    <TextBlock Text="通知中心" Margin="25,0,0,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem x:Name="ITEMmail" Style="{StaticResource MyListBoxItemStyle}">
+                                <StackPanel Orientation="Horizontal" Height="24">
+                                    <FontIcon  Width="24" Height="24" 
+                                               FontFamily="Segoe MDL2 Assets"
+                                               FontWeight="Thin"
+                                               Glyph="&#xE715;"
+                                               FontSize="24"/>
+                                    <TextBlock Text="PKU邮箱" Margin="25,0,0,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem x:Name="ITEMchat" Style="{StaticResource MyListBoxItemStyle}">
+                                <StackPanel Orientation="Horizontal" Height="24">
+                                    <FontIcon  Width="24" Height="24" 
+                                               FontFamily="Segoe MDL2 Assets"
+                                               FontWeight="Thin"
+                                               Glyph="&#xE15F;"
+                                               FontSize="24"/>
+                                    <TextBlock Text="我的消息" Margin="25,0,0,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem x:Name="ITEMhole" Style="{StaticResource MyListBoxItemStyle}">
+                                <StackPanel Orientation="Horizontal" Height="24">
+                                    <FontIcon  Width="24" Height="24" 
+                                               FontFamily="Segoe MDL2 Assets"
+                                               FontWeight="Thin"
+                                               Glyph="&#xED15;"
+                                               FontSize="24"/>
+                                    <TextBlock Text="北大树洞" Margin="25,0,0,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem x:Name="ITEMLF" Style="{StaticResource MyListBoxItemStyle}">
+                                <StackPanel Orientation="Horizontal" Height="24">
+                                    <FontIcon  Width="24" Height="24" 
+                                               FontFamily="Segoe MDL2 Assets"
+                                               FontWeight="Thin"
+                                               Glyph="&#xE97C;"
+                                               FontSize="24"/>
+                                    <TextBlock Text="失物招领" Margin="25,0,0,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                            <ListBoxItem x:Name="ITEMsetting" Style="{StaticResource MyListBoxItemStyle}">
+                                <StackPanel Orientation="Horizontal" Height="24">
+                                    <BitmapIcon  Width="24" Height="24" UriSource="Assets/settings.png" />
+                                    <TextBlock Text="设置" Margin="25,0,0,0"/>
+                                </StackPanel>
+                            </ListBoxItem>
+                        </ListBox>
+                    </Grid>
+                </Grid>
+            </SplitView.Pane>
+            <SplitView.Content>
+                <Frame x:Name="FRAMEcontent"/>
+            </SplitView.Content>
+        </SplitView>
+        <Grid x:Name="GRIDtitle"
+              VerticalAlignment="Top"
+              HorizontalAlignment="Stretch"
+              Height="32"
+              Background="{StaticResource TitleBackground}">
+            <TextBlock x:Name="TXTBLKtitle"
+                   Text="PKU Helper UWP"                   
+                   Foreground="White"                  
+                   FontSize="16"
+                   Height="30"                
+                   Padding="8,4,0,0" 
+                   HorizontalAlignment="Center"
+                   />
+        </Grid>
+        <Border ManipulationMode="TranslateX"
+                x:Name="BDswip"
+                ManipulationDelta="BDswip_ManipulationDelta"
+                ManipulationCompleted="BDswip_ManipulationCompleted"
+                Width="18"
+                Opacity="0"
+                Background="Green"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Stretch"
+                Margin="0,60,0,0"/>
+        <Button 
+                   Click="CHKBXhamburger_Click"
+                   Height="50" 
+                   Width="50"
+                   VerticalAlignment="Top" 
+                   HorizontalAlignment="Left" 
+                   Style="{StaticResource MyButtonStyle2}"
+                   x:Name="CHKBXhamburger">
+            <FontIcon Glyph="&#xE700;" Foreground="Black" FontSize="25" />
+        </Button>
+        
+    </Grid>
+    
+</Page>

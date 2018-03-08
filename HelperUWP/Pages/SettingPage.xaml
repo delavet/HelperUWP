@@ -1,0 +1,114 @@
+﻿<Page
+    x:Class="HelperUWP.Pages.SettingPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HelperUWP.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Storyboard x:Name="STRBDpopin"
+                    Duration="0:0:0.5">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TRANSroot"
+                                           Storyboard.TargetProperty="Y">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="300"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35"
+                                      Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" Exponent="6"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.TargetName="GRIDsettingRoot"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.3"
+                             To="1"
+                             Duration="0:0:0.35"/>
+
+        </Storyboard>
+    </Page.Resources>
+    <Grid x:Name="GRIDsettingRoot">
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="TRANSroot"/>
+        </Grid.RenderTransform>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="GRIDsettingTitle"
+              Grid.Row="0"
+              Background="{StaticResource TitleBackground}">
+            <TextBlock x:Name="TXTBLKsettingTitle"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="25"
+                       Text="设置"/>
+        </Grid>
+        <Grid Grid.Row="1"
+              Background="{StaticResource ChatBackground}">
+            <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                <StackPanel>
+                    <TextBlock FontSize="30"
+                               Text="外观"
+                               Margin="20,10"/>
+
+                    <TextBlock FontSize="20"
+                               Margin="20,10">
+                            背景模糊半径:
+                            <Run Text="{Binding ElementName=SLDradius,Path=Value,Mode=OneWay}"/>
+                    </TextBlock>
+                    <StackPanel Margin="20,10"
+                                Orientation="Horizontal">
+                        <Slider x:Name="SLDradius"
+                                Maximum="100"
+                                Minimum="10"
+                                Width="250"
+                                HorizontalAlignment="Left"
+                                ValueChanged="SLDradius_ValueChanged"/>
+                        <Button x:Name="BTNsaveRadius"
+                                Click="BTNsaveRadius_Click"
+                                Content="应用"
+                                Margin="30,0,0,0"
+                                Style="{StaticResource MyButtonStyle}"/>
+                    </StackPanel>
+                    <TextBlock FontSize="30"
+                               Text="课程表"
+                               Margin="20,10"/>
+                    <StackPanel Margin="20,10"
+                                Orientation="Horizontal">
+                        <TextBlock FontSize="20"
+                                   Text="课程来源："
+                                   VerticalAlignment="Center"/>
+                        <ComboBox Margin="30,0,0,0"
+                                  x:Name="CMBBXcourse"
+                                  SelectionChanged="CMBBXcourse_SelectionChanged"
+                                  BorderThickness="0"
+                                  Background="Transparent">
+                            <ComboBoxItem Style="{StaticResource ComboBoxItemStyle}"
+                                          Tag="elective">
+                                <TextBlock Text="Elective-选课平台"/>
+                            </ComboBoxItem>
+                            <ComboBoxItem Style="{StaticResource ComboBoxItemStyle}"
+                                          Tag="dean">
+                                <TextBlock Text="Dean-教务部网站"/>
+                            </ComboBoxItem>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Margin="20,10"
+                                Orientation="Horizontal">
+                        <TextBlock FontSize="20"
+                                   Text="启用自选课表："
+                                   VerticalAlignment="Center"/>
+                        <ToggleSwitch OnContent="是"
+                                      OffContent="否"
+                                      Margin="30,0,0,0"
+                                      Toggled="ToggleSwitch_Toggled"
+                                      x:Name="TGcustom"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>

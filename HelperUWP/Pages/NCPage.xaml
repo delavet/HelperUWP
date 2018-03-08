@@ -1,0 +1,117 @@
+﻿<Page
+    x:Class="HelperUWP.Pages.NCPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HelperUWP.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Storyboard x:Name="STRBDpopin"
+                    Duration="0:0:0.5">
+            
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TRANSroot"
+                                           Storyboard.TargetProperty="Y">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="300"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35"
+                                      Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" Exponent="6"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.TargetName="GRIDncRoot"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.3"
+                             To="1"
+                             Duration="0:0:0.35"/>
+        </Storyboard>
+        <Color x:Key="0">#AFFFA07A</Color>
+        <Color x:Key="1">#AFFDAAC4</Color>
+        <Color x:Key="2">#AFFFDAB9</Color>
+        <Storyboard x:Name="STRBDbgChange"
+                    Duration="0:0:0.3">
+            <ColorAnimation Storyboard.TargetName="SCBncBg"
+                            Storyboard.TargetProperty="Color"
+                            Duration="0:0:0.3"
+                            x:Name="ANIncBg">
+            </ColorAnimation>
+            
+        </Storyboard>
+    </Page.Resources>
+    <Grid x:Name="GRIDncRoot">
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="TRANSroot"/>
+        </Grid.RenderTransform>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VShole">
+                <VisualState x:Name="wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="850"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TXTBLKncTitle.HorizontalAlignment" 
+                                Value="Center"/>
+                        
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TXTBLKncTitle.HorizontalAlignment" 
+                                Value="Left"/>
+                        
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="GRIDncTitle"
+              Grid.Row="0"
+              Background="{StaticResource TitleBackground}">
+            <TextBlock x:Name="TXTBLKncTitle"
+                       VerticalAlignment="Center"
+                       FontSize="25"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="36"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Background="{StaticResource TitleBackground}" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Style="{StaticResource MyButtonStyle}" x:Name="BTNcourse"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Background="#00000000"  FontSize="16" Foreground="#FF777777" Tag="0" Click="Button_Click" Content="教学网"/>
+                <Button Style="{StaticResource MyButtonStyle}" x:Name="BTNall"  Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Background="#00000000"  FontSize="16" Foreground="#FF777777" Tag="1" Click="Button_Click" Content="全部通知"/>
+                <Button Style="{StaticResource MyButtonStyle}" x:Name="BTNone"  Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  Background="#00000000"  FontSize="16" Foreground="#FF777777"  Tag="2" Click="Button_Click" Content="单一源"/>
+            </Grid>
+            <Pivot x:Name="PVTnc"
+                   Grid.Row="1"
+                   Style="{StaticResource PivotStyle1}"
+                   SelectionChanged="PVTnc_SelectionChanged">
+                <Pivot.Background>
+                    <SolidColorBrush x:Name="SCBncBg"/>
+                </Pivot.Background>
+                <PivotItem Margin="0">
+                    <TextBlock Text="施工中，直到开发者的教学网能刷出至少一条通知"/>
+                </PivotItem>
+                <PivotItem Margin="0">
+                    <TextBlock Text="服务器挂了，不是我的锅"/>
+                </PivotItem>
+                <PivotItem Margin="0">
+                    <TextBlock Text="服务器挂了，不是我的锅"/>
+                </PivotItem>
+            </Pivot>
+        </Grid>
+    </Grid>
+</Page>

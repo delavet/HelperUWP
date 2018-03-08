@@ -1,0 +1,234 @@
+﻿<Page
+    x:Class="HelperUWP.Pages.LFmasterPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HelperUWP.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Controls="using:HelperUWP.Controls"
+    xmlns:NcRef="using:HelperUWP.NCref"
+    xmlns:LFRef="using:HelperUWP.LFref"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Storyboard x:Name="STRBDpopin"
+                    Duration="0:0:0.5">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TRANSroot"
+                                           Storyboard.TargetProperty="Y">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="300"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35"
+                                      Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" Exponent="6"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.TargetName="GRIDLFRoot"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.3"
+                             To="1"
+                             Duration="0:0:0.35"/>
+
+        </Storyboard>
+        <LFRef:LFConverter x:Key="lf_cvt"/>
+        <LFRef:TimeConverter x:Key="time_cvt"/>
+        <NcRef:NcSourceConverter x:Key="dtCvt"/>
+        <LFRef:DetailConverter x:Key="detail_cvt"/>
+    </Page.Resources>
+
+    <Grid x:Name="GRIDLFRoot"
+          SizeChanged="GRIDLFRoot_SizeChanged">
+
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="TRANSroot"/>
+        </Grid.RenderTransform>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VSLF">
+                <VisualState x:Name="wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="850"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TXTBLKLFTitle.HorizontalAlignment" 
+                                Value="Center"/>
+                        <Setter Target="BARtop.Visibility"
+                                Value="Visible"/>
+                        <Setter Target="BARbottom.Visibility"
+                                Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TXTBLKLFTitle.HorizontalAlignment" 
+                                Value="Left"/>
+                        <Setter Target="BARtop.Visibility"
+                                Value="Collapsed"/>
+                        <Setter Target="BARbottom.Visibility"
+                                Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="GRIDLFTitle"
+              Grid.Row="0"
+              Background="{StaticResource TitleBackground}">
+            <TextBlock x:Name="TXTBLKLFTitle"
+                       Text="失物招领"
+                       Margin="50,0,0,0" 
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       FontSize="25"/>
+        </Grid>
+        <CommandBar x:Name="BARtop"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Background="Transparent"
+                    HorizontalContentAlignment="Right"
+                    VerticalContentAlignment="Stretch">
+            <AppBarButton x:Name="BTNsend"
+                          Label="发布失物招领"  
+                          Click="BTNsend_Click"
+                          >
+                <FontIcon FontFamily="Segoe MDL2 Assets"
+                          Glyph="&#xEE56;"/>
+            </AppBarButton>
+            <CommandBar.Content>
+                <ComboBox x:Name="CMBBXLFType"
+                          SelectionChanged="CMBBXLFType_SelectionChanged"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Right"
+                          Margin="0,0,15,10"
+                          BorderThickness="0">
+                    <ComboBoxItem Style="{StaticResource ComboBoxItemStyle}"
+                                  Tag="lost">
+                        <TextBlock Text="失物"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem Style="{StaticResource ComboBoxItemStyle}"
+                                  Tag="found">
+                        <TextBlock Text="招领"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem Style="{StaticResource ComboBoxItemStyle}"
+                                  Tag="my">
+                        <TextBlock Text="我的"/>
+                    </ComboBoxItem>
+                </ComboBox>
+            </CommandBar.Content>
+        </CommandBar>
+        <Grid Grid.Row="1"
+              Background="{StaticResource LFBackground}">
+            <GridView x:Name="GRDVWLF"
+                      HorizontalAlignment="Center"
+                      SelectionMode="None"
+                      IsItemClickEnabled="True"
+                      ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                      ItemClick="GRDVWLF_ItemClick">
+                <GridView.ItemContainerStyle>
+                    <Style TargetType="GridViewItem">
+                        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="Margin" Value="5"/>
+                    </Style>
+                </GridView.ItemContainerStyle>
+                <GridView.ItemTemplate>
+                    <DataTemplate x:DataType="LFRef:LostFoundInfo">
+
+                        <Border CornerRadius="12"
+                                Background="White"
+                                Margin="5">
+                            <Grid Margin="0,5,0,3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="20"/>
+                                </Grid.RowDefinitions>
+                                <Grid Margin="12,8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Row="0"
+                                                               Grid.Column="0"
+                                                               Text="{x:Bind name}"
+                                                               FontSize="20"/>
+                                    <TextBlock Grid.Row="1"
+                                                               Grid.Column="0"
+                                                               Text="{x:Bind Path=detail,Converter={StaticResource ResourceKey=detail_cvt}}"
+                                                               FontSize="13"
+                                                               TextWrapping="Wrap" VerticalAlignment="Stretch" Foreground="#FF7C7C7C"/>
+                                    <Image Source="{x:Bind thumb_img}"
+                                                           Stretch="UniformToFill"
+                                                           Width="100"
+                                                           Height="120"
+                                                           Grid.Column="1"
+                                                           Grid.Row="0"
+                                                           Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Grid>
+                                <TextBlock FontSize="11" 
+                                           Margin="10,0,0,5"
+                                           Grid.Row="1">
+                                                        <Run Text="{x:Bind Path=lost_or_found,Converter={StaticResource ResourceKey=lf_cvt}}"/>
+                                                        <Run Text="{x:Bind Path=action_time,Converter={StaticResource ResourceKey=time_cvt}}"/>
+                                                        <Run Text="，发布于"/>
+                                                        <Run Text="{x:Bind Path=post_time,Converter={StaticResource ResourceKey=time_cvt}}"/>
+                                </TextBlock>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </GridView.ItemTemplate>
+            </GridView>
+        </Grid>
+        <Controls:MyProgressBar Grid.Row="1"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Top"
+                                 x:Name="PRGRSLF"/>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar x:Name="BARbottom"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Background="{StaticResource LFBackground}"
+                    HorizontalContentAlignment="Right"
+                    VerticalContentAlignment="Stretch">
+            <AppBarButton x:Name="BTNsend2"
+                          Label="发布失物招领"  
+                          Click="BTNsend_Click"
+                          >
+                <FontIcon FontFamily="Segoe MDL2 Assets"
+                          Glyph="&#xEE56;"/>
+            </AppBarButton>
+            <CommandBar.Content>
+                <ComboBox x:Name="CMBBXLFType2"
+                          SelectionChanged="CMBBXLFType_SelectionChanged"
+                          VerticalAlignment="Center"
+                          HorizontalAlignment="Right"
+                          Margin="0,0,15,10"
+                          BorderThickness="0">
+                    <ComboBoxItem Style="{StaticResource ComboBoxItemStyle}"
+                                  Tag="lost">
+                        <TextBlock Text="失物"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem Style="{StaticResource ComboBoxItemStyle}"
+                                  Tag="found">
+                        <TextBlock Text="招领"/>
+                    </ComboBoxItem>
+                    <ComboBoxItem Style="{StaticResource ComboBoxItemStyle}"
+                                  Tag="my">
+                        <TextBlock Text="我的"/>
+                    </ComboBoxItem>
+                </ComboBox>
+            </CommandBar.Content>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

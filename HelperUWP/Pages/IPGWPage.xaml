@@ -1,0 +1,868 @@
+﻿<Page
+    x:Class="HelperUWP.Pages.IPGWPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HelperUWP.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <Storyboard x:Name="STRBDredRoll"
+                    AutoReverse="True"
+                    RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="SCALEred"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="1"
+                             To="1.1"
+                             Duration="0:0:0.7"/>
+            <DoubleAnimation Storyboard.TargetName="SCALEred"
+                             Storyboard.TargetProperty="ScaleY"
+                             From="1"
+                             To="1.1"
+                             Duration="0:0:0.7"/>
+        </Storyboard>
+        <Storyboard x:Name="STRBDgreenRoll"
+                    AutoReverse="True"
+                    RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="SCALEgreen"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="1"
+                             To="1.1"
+                             Duration="0:0:0.7"/>
+            <DoubleAnimation Storyboard.TargetName="SCALEgreen"
+                             Storyboard.TargetProperty="ScaleY"
+                             From="1"
+                             To="1.1"
+                             Duration="0:0:0.7"/>
+        </Storyboard>
+        <Storyboard x:Name="STRBDblueRoll"
+                    AutoReverse="True"
+                    RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="SCALEblue"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="1"
+                             To="1.1"
+                             Duration="0:0:0.7"/>
+            <DoubleAnimation Storyboard.TargetName="SCALEblue"
+                             Storyboard.TargetProperty="ScaleY"
+                             From="1"
+                             To="1.1"
+                             Duration="0:0:0.7"/>
+        </Storyboard>
+        <Storyboard x:Name="STRBDyellowRoll"
+                    AutoReverse="True"
+                    RepeatBehavior="Forever">
+            <DoubleAnimation Storyboard.TargetName="SCALEyellow"
+                             Storyboard.TargetProperty="ScaleX"
+                             From="1"
+                             To="1.1"
+                             Duration="0:0:0.7"/>
+            <DoubleAnimation Storyboard.TargetName="SCALEyellow"
+                             Storyboard.TargetProperty="ScaleY"
+                             From="1"
+                             To="1.1"
+                             Duration="0:0:0.7"/>
+        </Storyboard>
+        <Storyboard x:Name="STRBDconnecting"
+                    AutoReverse="True"
+                    RepeatBehavior="Forever">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PROJin"
+                                           Storyboard.TargetProperty="RotationY"
+                                           Duration="0:0:1">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="180">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PROJout"
+                                           Storyboard.TargetProperty="RotationY"
+                                           Duration="0:0:1">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="360">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="STRBDcircle1"
+                    AutoReverse="True"
+                    Completed="STRBDcircle_Completed"
+                    Duration="0:0:1">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PROJin"
+                                           Storyboard.TargetProperty="RotationY"
+                                           Duration="0:0:1">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="180">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PROJout"
+                                           Storyboard.TargetProperty="RotationY"
+                                           Duration="0:0:1">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="360">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="STRBDcircle2"
+                    AutoReverse="True"
+                    Completed="STRBDcircle_Completed"
+                    Duration="0:0:1">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PROJin"
+                                           Storyboard.TargetProperty="RotationX"
+                                           Duration="0:0:1">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="180">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PROJout"
+                                           Storyboard.TargetProperty="RotationY"
+                                           Duration="0:0:1">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="180">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="STRBDcircle3"
+                    Completed="STRBDcircle_Completed"
+                    AutoReverse="True"
+                    Duration="0:0:1"
+                    >
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSout"
+                                           Storyboard.TargetProperty="Width"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="100"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="130">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="4"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSout"
+                                           Storyboard.TargetProperty="Height"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="100"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="130">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="4"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSout"
+                                           Storyboard.TargetProperty="StrokeThickness"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="10"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="25">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="4"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="STRBDcircle4"
+                    Completed="STRBDcircle_Completed"
+                    AutoReverse="True"
+                    Duration="0:0:1"
+                    >
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSout"
+                                           Storyboard.TargetProperty="Width"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="100"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="80">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSout"
+                                           Storyboard.TargetProperty="Height"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="100"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="80">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSin"
+                                           Storyboard.TargetProperty="Height"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="80"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="100">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSin"
+                                           Storyboard.TargetProperty="Width"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="80"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="100">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSout"
+                                           Storyboard.TargetProperty="StrokeThickness"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="10"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="6">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSin"
+                                           Storyboard.TargetProperty="StrokeThickness"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="6"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="10">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="STRBDcircle5"
+                    Completed="STRBDcircle_Completed"
+                    AutoReverse="True"
+                    Duration="0:0:1"
+                    >
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSout"
+                                           Storyboard.TargetProperty="Width"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="100"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="130">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSout"
+                                           Storyboard.TargetProperty="Height"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="100"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="130">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSin"
+                                           Storyboard.TargetProperty="Height"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="80"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="60">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSin"
+                                           Storyboard.TargetProperty="Width"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="80"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1"
+                                      Value="60">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            
+        </Storyboard>
+        <Storyboard x:Name="STRBDconnectStart"
+                    Duration="0:0:0.7">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSin"
+                                           Storyboard.TargetProperty="Width"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="80"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5"
+                                      Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSin"
+                                           Storyboard.TargetProperty="Height"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="80"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5"
+                                      Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSin"
+                                           Storyboard.TargetProperty="StrokeThickness"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="6"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5"
+                                      Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSout"
+                                           Storyboard.TargetProperty="Width"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="100"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5"
+                                      Value="150">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSout"
+                                           Storyboard.TargetProperty="Height"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="100"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5"
+                                      Value="150">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSout"
+                                           Storyboard.TargetProperty="StrokeThickness"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="10"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5"
+                                      Value="35">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PROJred"
+                                           Storyboard.TargetProperty="RotationY">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="90"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PROJblue"
+                                           Storyboard.TargetProperty="RotationY">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="90"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PROJgreen"
+                                           Storyboard.TargetProperty="RotationY">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="-90"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PROJyellow"
+                                           Storyboard.TargetProperty="RotationY">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="-90"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SCALErecSlid"
+                                           Storyboard.TargetProperty="ScaleX">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.5"
+                                      Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseOut"
+                                  Amplitude="3"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SCALErecSlid"
+                                           Storyboard.TargetProperty="ScaleY">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.5"
+                                      Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <BackEase EasingMode="EaseOut"
+                                  Amplitude="1.3"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="STRBDconnectEnd"
+                    Duration="0:0:0.7"
+                    Completed="STRBDconnectEnd_Completed">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSin"
+                                           Storyboard.TargetProperty="Width"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0.2"
+                                      Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="80">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSin"
+                                           Storyboard.TargetProperty="Height"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0.2"
+                                      Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="80">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSin"
+                                           Storyboard.TargetProperty="StrokeThickness"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0.2"
+                                      Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="6">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSout"
+                                           Storyboard.TargetProperty="Width"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0.2"
+                                      Value="150"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="100">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSout"
+                                           Storyboard.TargetProperty="Height"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0.2"
+                                      Value="150"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="100">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ELPSout"
+                                           Storyboard.TargetProperty="StrokeThickness"
+                                           EnableDependentAnimation="True">
+                <LinearDoubleKeyFrame KeyTime="0:0:0.2"
+                                      Value="35"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="10">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseInOut" Exponent="2"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PROJred"
+                                           Storyboard.TargetProperty="RotationY">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="90"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PROJblue"
+                                           Storyboard.TargetProperty="RotationY">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="90"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PROJgreen"
+                                           Storyboard.TargetProperty="RotationY">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="-90"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="PROJyellow"
+                                           Storyboard.TargetProperty="RotationY">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.7"
+                                      Value="-90"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SCALErecSlid"
+                                           Storyboard.TargetProperty="ScaleX">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="1"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.2"
+                                      Value="0"/>
+                
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="SCALErecSlid"
+                                           Storyboard.TargetProperty="ScaleY">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="1"/>
+                <LinearDoubleKeyFrame KeyTime="0:0:0.2"
+                                      Value="0"/>
+                
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Name="STRBDpopin"
+                    Duration="0:0:0.5"
+                    Completed="STRBDpopin_Completed">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TRANSroot"
+                                           Storyboard.TargetProperty="Y">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="300"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35"
+                                      Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" Exponent="6"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.TargetName="GRIDipgwBox"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.3"
+                             To="1"
+                             Duration="0:0:0.35"/>
+            
+        </Storyboard>
+    </Page.Resources>
+    
+
+    <Grid x:Name="GRIDipgwBox">
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="TRANSroot"/>
+        </Grid.RenderTransform>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VSipgw">
+                <VisualState x:Name="wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="850"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TXTBLKipgwTitle.HorizontalAlignment" 
+                                Value="Center"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TXTBLKipgwTitle.HorizontalAlignment" 
+                                Value="Left"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="GRIDipgwTitle"
+              Grid.Row="0"
+              Background="{StaticResource TitleBackground}">
+            <TextBlock x:Name="TXTBLKipgwTitle"
+                       Text="北大网关"
+                       Margin="50,0,0,0" 
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       FontSize="25"/>
+        </Grid>
+        <Grid x:Name="GRIDipgwMain"
+              Grid.Row="1"
+              ManipulationMode="All"
+              ManipulationDelta="GRIDipgwMain_ManipulationDelta"
+              ManipulationCompleted="GRIDipgwMain_ManipulationCompleted">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Ellipse x:Name="ELPSout"
+                     Width="100"
+                     Height="100"           
+                     Fill="Transparent"
+                     Stroke="#7FFFFFFF"
+                     StrokeThickness="10"
+                     Grid.ColumnSpan="3"
+                     Grid.RowSpan="3">
+                <Ellipse.Projection>
+                    <PlaneProjection x:Name="PROJout"/>
+                </Ellipse.Projection>
+                <Ellipse.RenderTransform>
+                    <ScaleTransform CenterX="50"
+                                    CenterY="50"
+                                    x:Name="SCALEout"/>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Ellipse x:Name="ELPSin"
+                     Width="80"
+                     Height="80"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Fill="Transparent"
+                     Stroke="#DFFFFFFF"
+                     StrokeThickness="6"
+                     PointerPressed="ELPSin_PointerPressed"
+                     PointerReleased="ELPSin_PointerReleased"
+                     ManipulationStarted="ELPSin_ManipulationStarted"
+                     ManipulationMode="All"
+                     Grid.Column="1"
+                     Grid.Row="1">
+                <Ellipse.Projection>
+                    <PlaneProjection x:Name="PROJin"/>
+                </Ellipse.Projection>
+                <Ellipse.RenderTransform>
+                    <ScaleTransform CenterX="40"
+                                    CenterY="40"
+                                    x:Name="SCALEin"/>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+            <Path x:Name="PATHslid"
+                  Fill="#E0FFFFFF"
+                  Width="50"
+                  Height="50"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  Grid.ColumnSpan="3"
+                  Grid.RowSpan="3"
+                  ManipulationMode="All">
+                <Path.RenderTransform>
+                    <ScaleTransform ScaleX="0" 
+                                    ScaleY="0" 
+                                    x:Name="SCALErecSlid" 
+                                    CenterX="25" 
+                                    CenterY="25"/>
+                </Path.RenderTransform>
+                
+                <Path.Data>
+                    <RectangleGeometry x:Name="RECslid"
+                                       Rect="0,0,50,50"/>
+                </Path.Data>
+            </Path>
+            
+            <Path x:Name="PATHred"
+                  Height="100"
+                  Width="100"
+                  Stroke="#FFEB3C00"
+                  Fill="{StaticResource MicroSoftRed}"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Bottom"
+                  PointerEntered="PATHred_PointerEntered"
+                  PointerExited="PATHred_PointerExited">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure StartPoint="0,0">
+                            <LineSegment Point="50,0"
+                                         x:Name="LINEred1"/>
+                            <LineSegment Point="100,100"/>
+                            <LineSegment Point="0,50"
+                                         x:Name="LINEred2"/>
+                            <LineSegment Point="0,0"/>
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+                <Path.Projection>
+                    <PlaneProjection x:Name="PROJred"
+                                     CenterOfRotationY="0"
+                                     RotationY="90"/>
+                </Path.Projection>
+                <Path.RenderTransform>
+                    <ScaleTransform x:Name="SCALEred"
+                                    CenterX="50"
+                                    CenterY="50"/>
+                </Path.RenderTransform>
+            </Path>
+            <Path x:Name="PATHgreen"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Bottom"
+                  Stroke="#FF007233"
+                  Fill="{StaticResource MicroSoftGreen}"
+                  Grid.Row="0"
+                  Grid.Column="2"
+                  Height="100"
+                  Width="100"
+                  PointerEntered="PATHgreen_PointerEntered"
+                  PointerExited="PATHgreen_PointerExited">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure StartPoint="100,0">
+                            <LineSegment Point="100,50"
+                                         x:Name="LINEgreen1"/>
+                            <LineSegment Point="0,100"/>
+                            <LineSegment Point="50,0"
+                                         x:Name="LINEgreen2"/>
+                            <LineSegment Point="100,0"/>
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+                <Path.Projection>
+                    <PlaneProjection x:Name="PROJgreen"
+                                     CenterOfRotationY="100"
+                                     RotationY="-90"/>
+                </Path.Projection>
+                <Path.RenderTransform>
+                    <ScaleTransform x:Name="SCALEgreen"
+                                    CenterX="50"
+                                    CenterY="50"/>
+                </Path.RenderTransform>
+            </Path>
+            <Path x:Name="PATHblue"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Top"
+                  Stroke="#FF00BCF2"
+                  Fill="{StaticResource MicroSoftBlue}"
+                  Grid.Column="0"
+                  Grid.Row="2"
+                  Width="100"
+                  Height="100"
+                  PointerEntered="PATHblue_PointerEntered"
+                  PointerExited="PATHblue_PointerExited">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure StartPoint="0,100">
+                            <LineSegment Point="0,50"
+                                         x:Name="LINEblue1"/>
+                            <LineSegment Point="100,0"/>
+                            <LineSegment Point="50,100"
+                                         x:Name="LINEblue2"/>
+                            <LineSegment Point="0,100"/>
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+                <Path.Projection>
+                    <PlaneProjection x:Name="PROJblue"
+                                     CenterOfRotationY="0"
+                                     RotationY="90"/>
+                </Path.Projection>
+                <Path.RenderTransform>
+                    <ScaleTransform x:Name="SCALEblue"
+                                    CenterX="50"
+                                    CenterY="50"/>
+                </Path.RenderTransform>
+            </Path>
+            <Path x:Name="PATHyellow"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  Stroke="#FFF7AF32"
+                  Fill="{StaticResource MicroSoftYellow}"
+                  Grid.Column="2"
+                  Grid.Row="2"
+                  Width="100"
+                  Height="100"
+                  PointerEntered="PATHyellow_PointerEntered"
+                  PointerExited="PATHyellow_PointerExited">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathFigure StartPoint="100,100">
+                            <LineSegment Point="50,100"
+                                         x:Name="LINEyellow1"/>
+                            <LineSegment Point="0,0"/>
+                            <LineSegment Point="100,50"
+                                         x:Name="LINEyellow2"/>
+                            <LineSegment Point="100,100"/>
+                        </PathFigure>
+                    </PathGeometry>
+                </Path.Data>
+                <Path.Projection>
+                    <PlaneProjection x:Name="PROJyellow"
+                                     CenterOfRotationY="100"
+                                     RotationY="-90"/>
+                </Path.Projection>
+                <Path.RenderTransform>
+                    <ScaleTransform x:Name="SCALEyellow"
+                                    CenterX="50"
+                                    CenterY="50"/>
+                </Path.RenderTransform>
+            </Path>
+        </Grid>
+        <CommandBar Grid.Row="0"
+                    Grid.RowSpan="2"
+                    Background="Transparent"
+                    >
+            <AppBarButton x:Name="BTNrtMsg" 
+                          Label="连接状态" >
+                <AppBarButton.Icon>
+                    <SymbolIcon Symbol="Account"/>
+                </AppBarButton.Icon>
+            </AppBarButton>
+        </CommandBar>
+    </Grid>
+</Page>

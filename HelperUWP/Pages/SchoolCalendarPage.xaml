@@ -1,0 +1,70 @@
+﻿<Page
+    x:Class="HelperUWP.Pages.SchoolCalendarPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HelperUWP.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Controls="using:HelperUWP.Controls"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <Storyboard x:Name="STRBDpopin"
+                    Duration="0:0:0.5">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TRANSroot"
+                                           Storyboard.TargetProperty="Y">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="300"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35"
+                                      Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" Exponent="6"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.TargetName="GRIDcalendarRoot"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.3"
+                             To="1"
+                             Duration="0:0:0.35"/>
+
+        </Storyboard>
+    </Page.Resources>
+    <Grid x:Name="GRIDcalendarRoot">
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="TRANSroot"/>
+        </Grid.RenderTransform>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="GRIDcalendarTitle"
+              Grid.Row="0"
+              Background="{StaticResource TitleBackground}">
+            <TextBlock x:Name="TXTBLKcalendarTitle"
+                       Text="北大校历"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="25"/>
+            <Button x:Name="BTNback"
+                    Height="50"
+                    Width="50"
+                    Style="{StaticResource MyButtonStyle}"
+                    FontFamily="Segoe MDL2 Assets"
+                    Content="&#xE0A6;"
+                    HorizontalAlignment="Left"
+                    Click="BTNback_Click"
+                    FontSize="25"
+                    Background="Transparent"
+                    Grid.Row="0"/>
+        </Grid>
+        <WebView x:Name="WBVWcalendar"
+                 Source="http://www.pku.edu.cn/campuslife/xl/index.htm"
+                 Opacity="0.85"
+                 ContentLoading="WBVWcalendar_ContentLoading"
+                 Grid.Row="1"/>
+        <Controls:MyProgressRing x:Name="PRGRScalendar"
+                                 Grid.RowSpan="2"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"/>
+    </Grid>
+</Page>

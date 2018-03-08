@@ -1,0 +1,247 @@
+﻿<Page
+    x:Class="HelperUWP.Pages.LFsendPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HelperUWP.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:Controls="using:HelperUWP.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <Storyboard x:Name="STRBDpopin"
+                    Duration="0:0:0.5">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TRANSroot"
+                                           Storyboard.TargetProperty="Y">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="300"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35"
+                                      Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" Exponent="6"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.TargetName="GRIDLFsendRoot"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.3"
+                             To="1"
+                             Duration="0:0:0.35"/>
+        </Storyboard>
+    </Page.Resources>
+
+    <Grid x:Name="GRIDLFsendRoot">
+
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="TRANSroot"/>
+        </Grid.RenderTransform>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VSLFsend">
+                <VisualState x:Name="wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="850"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TXTBLKLFsendTitle.HorizontalAlignment" 
+                                Value="Center"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TXTBLKLFsendTitle.HorizontalAlignment" 
+                                Value="Left"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="GRIDLFsendTitle"
+              Grid.Row="0"
+              Background="{StaticResource TitleBackground}">
+            <TextBlock x:Name="TXTBLKLFsendTitle"
+                       Text="发布失物招领"
+                       Margin="50,0,0,0" 
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       FontSize="25"/>
+            <Button x:Name="BTNback"
+                    FontFamily="Segoe MDL2 Assets"
+                    Content="&#xE0A6;"
+                    Background="Transparent"
+                    FontSize="25"
+                    Height="50"
+                    Width="50"
+                    Style="{StaticResource MyButtonStyle}"
+                    Click="BTNback_Click">
+            </Button>
+            <Button x:Name="BTNsend"
+                    FontFamily="Segoe MDL2 Assets"
+                    HorizontalAlignment="Right"
+                    Content="&#xE001;"
+                    Background="Transparent"
+                    FontSize="25"
+                    Height="50"
+                    Width="50"
+                    Click="BTNsend_Click"/>
+        </Grid>
+        <ScrollViewer VerticalScrollMode="Enabled"
+                      HorizontalScrollMode="Disabled"
+                      Grid.Row="1"
+                      Background="{StaticResource LFBackground}">
+            <StackPanel>
+                <TextBlock Text="基本信息" 
+                           FontSize="10" 
+                           Margin="20,3,0,3"
+                           x:Name="base_hint"
+                           />
+                <Grid x:Name="name_grid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Grid.ColumnSpan="2"
+                               Fill="{StaticResource MenuBackground}"/>
+                    <TextBlock Text="物品名称："
+                               FontSize="18" Margin="20,7,0,7"
+                               Grid.Column="0"
+                               />
+                    <TextBox Grid.Column="1"
+                             x:Name="name_box"
+                             BorderThickness="0"
+                             Background="Transparent"/>
+                </Grid>
+                <Grid x:Name="lf_grid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="104"/>
+                        <ColumnDefinition Width="21"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Grid.ColumnSpan="3"
+                               Fill="{StaticResource MenuBackground}"/>
+                    <TextBlock Text="失物or招领："
+                               FontSize="18" Margin="20,7,0,7"
+                               Grid.Column="0" 
+                               Grid.ColumnSpan="2"/>
+                    <ComboBox Grid.Column="2" 
+                              HorizontalAlignment="Stretch" 
+                              VerticalAlignment="Stretch"
+                              x:Name="lost_or_found_box"
+                              Background="Transparent"
+                              BorderThickness="0">
+                        <x:String>失物</x:String>
+                        <x:String>招领</x:String>
+                    </ComboBox>
+                </Grid>
+                <TextBlock Text="选择物品大类" 
+                           FontSize="10" 
+                           Margin="20,3,0,3"
+                           x:Name="type_hint"
+                           />
+                <ComboBox Grid.Column="1" 
+                          HorizontalAlignment="Stretch" 
+                          VerticalAlignment="Stretch"
+                          x:Name="type_box"
+                          >
+                    <x:String>卡片或钱包</x:String>
+                    <x:String>书籍或笔记本</x:String>
+                    <x:String>电子设备</x:String>
+                    <x:String>其他</x:String>
+                </ComboBox>
+                <TextBlock Text="物品详细信息" 
+                           FontSize="10" 
+                           Margin="20,3,0,3"
+                           x:Name="detail_hint"
+                           />
+                <!--RichEditBox
+                         Background="White"
+                         x:Name="detail_box"/-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Grid.ColumnSpan="2"
+                               Fill="{StaticResource MenuBackground}"
+                               Stroke="SkyBlue"/>
+                    <TextBlock Text="详细信息："
+                               FontSize="18" Margin="20,7,0,7"
+                               Grid.Column="0"/>
+                    <TextBox Grid.Column="1"
+                             x:Name="detail_box"
+                             TextWrapping="Wrap"
+                             FontSize="20"
+                             Background="Transparent"
+                             BorderThickness="0"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" 
+                            Margin="20,6,0,0"
+                            x:Name="img_panel"
+                            >
+                    <Button x:Name="choose_img_btn"
+                            Click="choose_img_btn_Click"
+                            Content="添加图片"
+                            Style="{StaticResource MyButtonStyle}"/>
+                    <Button x:Name="delete_img_btn"
+                            Click="delete_img_btn_Click"
+                            Style="{StaticResource MyButtonStyle}"
+                            Content="删除图片" 
+                            Margin="25,0,0,0"/>
+                </StackPanel>
+                <Image x:Name="preview_img"
+                      />
+                <DatePicker x:Name="action_date_chooser"
+                            Header="丢失/拾到的日期"
+                            BorderThickness="0"
+                            BorderBrush="Transparent">
+                    <DatePicker.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock FontSize="10" Text="{Binding}" Margin="20,3,0,0"/>
+                        </DataTemplate>
+                    </DatePicker.HeaderTemplate>
+                </DatePicker>
+                <TimePicker x:Name="action_time_chooser"
+                            Header="丢失、拾到的时间"
+                            BorderThickness="0"
+                            BorderBrush="Transparent">
+                    <TimePicker.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock FontSize="10" Text="{Binding}" Margin="20,3,0,0"/>
+                        </DataTemplate>
+                    </TimePicker.HeaderTemplate>
+                </TimePicker>
+                <TextBlock Text="你的联系方式"
+                           FontSize="10" Margin="20,3"
+                           x:Name="phone_hint"
+                           />
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="125"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Grid.ColumnSpan="2"
+                               Fill="{StaticResource MenuBackground}"
+                               Stroke="SkyBlue"/>
+                    <TextBlock Text="联系电话："
+                               FontSize="18" Margin="20,7,0,7"
+                               Grid.Column="0"/>
+                    <TextBox Grid.Column="1"
+                             x:Name="phone_box"
+                             TextWrapping="Wrap"
+                             BorderThickness="0"
+                             Background="Transparent"
+                             InputScope="TelephoneNumber"/>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+        <Controls:MyProgressRing x:Name="PRGRSLFsend"
+                                 Grid.RowSpan="2"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"/>
+    </Grid>
+</Page>

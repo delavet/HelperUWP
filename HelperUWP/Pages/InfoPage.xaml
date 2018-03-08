@@ -1,0 +1,195 @@
+﻿<Page
+    x:Class="HelperUWP.Pages.InfoPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HelperUWP.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Controls="using:HelperUWP.Controls"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <Storyboard x:Name="STRBDpopin"
+                    Duration="0:0:0.35">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TRANSroot"
+                                           Storyboard.TargetProperty="Y">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="300"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35"
+                                      Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" Exponent="6"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.TargetName="GRIDinfoRoot"
+                             Storyboard.TargetProperty="Opacity"
+                             From="0.3"
+                             To="1"
+                             Duration="0:0:0.35"/>
+        </Storyboard>
+        <Storyboard x:Name="STRBDdetailShrink"
+                    Completed="STRBDdetailShrink_Completed">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="TRANSdetail"
+                                           Storyboard.TargetProperty="Y">
+                <LinearDoubleKeyFrame KeyTime="0:0:0"
+                                      Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.35"
+                                      Value="600">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <ExponentialEase EasingMode="EaseIn" Exponent="6"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimation Storyboard.TargetName="FRAMEdetail"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1"
+                             To="0"
+                             Duration="0:0:0.35"/>
+        </Storyboard>
+    </Page.Resources>
+
+    <Grid 
+          x:Name="GRIDinfoRoot"
+          Loaded="GRIDinfoRoot_Loaded">
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="TRANSroot"/>
+        </Grid.RenderTransform>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name="COLmaster"/>
+            <ColumnDefinition x:Name="COLdetail"/>
+        </Grid.ColumnDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="VSGinfo"
+                              CurrentStateChanged="VSGadapt_CurrentStateChanged">
+                <VisualState x:Name="narrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="TXTBLKinfoTitle.HorizontalAlignment" 
+                                Value="Left"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="850"/>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="COLmaster.Width"
+                                Value="400"/>
+                        <Setter Target="COLdetail.Width"
+                                Value="*"/>
+                        <Setter Target="TXTBLKinfoTitle.HorizontalAlignment" 
+                                Value="Center"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid x:Name="GRIDmaster"
+              Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid x:Name="GRIDinfoTitle"
+              Grid.Row="0"
+              Background="{StaticResource TitleBackground}">
+                <TextBlock x:Name="TXTBLKinfoTitle"
+                       Text="常用信息"
+                       Margin="50,0,0,0" 
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       FontSize="25"/>
+            </Grid>
+            <Grid Grid.Row="1"
+                  Background="{StaticResource InfoBackground}">
+                <Controls:PivotEnhance HorizontalAlignment="Left"
+                                   VerticalAlignment="Bottom"/>
+                <Controls:MyProgressBar x:Name="PRGRSinfo"
+                                        VerticalAlignment="Top"/>
+                <ListView x:Name="LSTVWinfo"
+                          IsItemClickEnabled="True"
+                          SelectionMode="None"
+                          ItemClick="LSTVWinfo_ItemClick"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                          IsActiveView="True"
+                          ItemContainerStyle="{StaticResource ListViewItemExpanded}"
+                          Margin="0,5,0,0">
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate >
+                            <Grid Margin="5" >
+                                <Border Background="White"
+                                        CornerRadius="5">
+                                    <RelativePanel Margin="5,5">
+                                        <!--Border x:Name="BDicon"
+                                                Height="30"
+                                                Width="30"
+                                                CornerRadius="15"
+                                                Margin="5,0,0,0"
+                                                Background="Black">
+                                            <Image   
+                                                    x:Name="usual_icon" 
+                                                    Source="{Binding Path=ImageSource}" 
+                                                    Width="30" 
+                                                    Height="30"/>
+                                        </Border-->
+                                        <Ellipse x:Name="ELPSicon"
+                                                 Height="30"
+                                                 Width="30"
+                                                 Margin="5,0,0,0">
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource="{Binding Path=ImageSource}"
+                                                            Stretch="Fill"/>
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+                                        <TextBlock RelativePanel.AlignVerticalCenterWithPanel="True"
+                                                   Text="{Binding Path=ItemName}"                           
+                                                   Margin="60,0,0,0"  
+                                                   FontSize="20"
+                                                   RelativePanel.AlignLeftWith="ELPSicon"/>
+                                        <TextBlock 
+                                                   FontFamily="Segoe MDL2 Assets" 
+                                                   Text="&#xE0E3;"  
+                                                   FontSize="15"
+                                                   RelativePanel.AlignVerticalCenterWithPanel="True"
+                                                   RelativePanel.AlignRightWithPanel="True"/>
+                                    </RelativePanel>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+            
+        </Grid>
+        <Frame x:Name="FRAMEdetail"
+               Grid.Column="1">
+            <Frame.RenderTransform>
+                <TranslateTransform x:Name="TRANSdetail"/>
+            </Frame.RenderTransform>
+        </Frame>
+        <ContentDialog x:Name="DLGverify" 
+                       Title="请输入验证码" 
+                       PrimaryButtonText="确定" 
+                       SecondaryButtonText="取消" 
+                       Closing="DLGverify_Closing"
+                       Opened="DLGverify_Opened"
+                       Background="{StaticResource DialogBackground}"
+                       BorderBrush="Transparent">
+            <StackPanel Orientation="Horizontal" 
+                        Margin="0,20,0,0" >
+                <TextBox x:Name="TXTBXinput" 
+                         Width="120" 
+                         Height="30"/>
+                <Image x:Name="IMGverify" 
+                       Height="30" 
+                       Width="140" 
+                       HorizontalAlignment="Right" 
+                       Margin="15,0,0,0"/>
+            </StackPanel>
+        </ContentDialog>
+    </Grid>
+</Page>
